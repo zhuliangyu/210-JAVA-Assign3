@@ -26,7 +26,6 @@ public class FoodServicesCardTest {
         assertEquals(INITIAL_BALANCE, testCard.getBalance());
         assertEquals(0, testCard.getRewardPoints());
 
-
     }
 
     @Test
@@ -77,6 +76,18 @@ public class FoodServicesCardTest {
         assertTrue(testCard.makePurchase(amount));
         assertEquals(INITIAL_BALANCE - amount + testCard.CASH_BACK_REWARD, testCard.getBalance());
         assertEquals(initialPoint + testCard.REWARD_POINTS_PER_CENT_CHARGED * amount - testCard.POINTS_NEEDED_FOR_CASH_BACK, testCard.getRewardPoints());
+
+    }
+
+    @Test
+    public void testMakePurchaseEnoughMoneyVertLargePurchase() {
+
+        int initialPoint = 1999;
+        testCard.points = initialPoint;
+        int amount = 4000;
+        assertTrue(testCard.makePurchase(amount));
+        assertEquals(INITIAL_BALANCE - amount + testCard.CASH_BACK_REWARD * 2, testCard.getBalance());
+        assertEquals(initialPoint + testCard.REWARD_POINTS_PER_CENT_CHARGED * amount - testCard.POINTS_NEEDED_FOR_CASH_BACK * 2, testCard.getRewardPoints());
 
     }
 

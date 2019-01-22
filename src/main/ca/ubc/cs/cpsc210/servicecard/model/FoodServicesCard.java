@@ -47,9 +47,10 @@ public class FoodServicesCard {
             balance -= amount;
             points += amount * REWARD_POINTS_PER_CENT_CHARGED;
 
+            int time = points / POINTS_NEEDED_FOR_CASH_BACK;
             if (points >= POINTS_NEEDED_FOR_CASH_BACK) {
-                points -= POINTS_NEEDED_FOR_CASH_BACK;
-                balance += CASH_BACK_REWARD;
+                points -= POINTS_NEEDED_FOR_CASH_BACK * time;
+                balance += CASH_BACK_REWARD * time;
             }
 
             return true;
