@@ -12,20 +12,24 @@ public class FoodServicesCard {
     //TODO: add fields to represent changing properties of a food services card
 
 
+    public int balance;
+    public int points;
+
 
     // REQUIRES: initialBalance >= 0
     // EFFECTS: constructs food service card with given initial balance in cents and zero reward points
     public FoodServicesCard(int initialBalance) {
-        // TODO: implement the constructor
-        // stub
+
+        points = 0;
+        balance = initialBalance;
     }
+
 
     // REQUIRES: amount > 0
     // MODIFIES: this
     // EFFECTS: adds amount cents to balance on card
     public void reload(int amount) {
-        // TODO: implement this method
-        // stub
+        balance += amount;
     }
 
     // MODIFIES: this
@@ -36,19 +40,31 @@ public class FoodServicesCard {
     //             - returns true
     //          otherwise, returns false
     public boolean makePurchase(int amount) {
-        // TODO: implement this method
-        return false;   // stub
+
+        if (balance < amount) {
+            return false;
+        } else {
+            balance -= amount;
+            points += amount * REWARD_POINTS_PER_CENT_CHARGED;
+
+            if (points >= POINTS_NEEDED_FOR_CASH_BACK) {
+                points -= POINTS_NEEDED_FOR_CASH_BACK;
+                balance += CASH_BACK_REWARD;
+            }
+
+            return true;
+        }
+
+
     }
 
     // EFFECTS: returns remaining balance in cents
     public int getBalance() {
-        // TODO: implement this method
-        return 0;    // stub
+        return balance;
     }
 
     // EFFECTS: returns number of unused reward points
     public int getRewardPoints() {
-        // TODO: implement this method
-        return 0;    // stub
+        return points;
     }
 }
